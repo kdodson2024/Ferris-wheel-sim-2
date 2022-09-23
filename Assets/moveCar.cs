@@ -27,7 +27,7 @@ public class moveCar : MonoBehaviour
     {
         confetti.SetActive(false);
         useTime = false;
-        timeC = 0 - (period * 3);
+        timeC = .001f - (period * 3);
         rigid = GetComponent<Rigidbody>();
         attatched = true;
         cartScript = cart.GetComponent<PoolCart>();
@@ -62,7 +62,7 @@ public class moveCar : MonoBehaviour
             sloCam.SetActive(false);
             cartCam.SetActive(false);
         }
-        if(useTime && Mathf.Abs(timeToRelease - timeC) <= 1.3 * Time.deltaTime){
+        if(useTime && Mathf.Abs(timeToRelease - timeC) <= 1.05 * Time.deltaTime){
             release();
         }
         if(Input.GetKeyDown(KeyCode.Space))
@@ -83,16 +83,16 @@ public class moveCar : MonoBehaviour
     }
     public void reset(){
         if(period <= 5){
-            timeC = 0 - (period * 3);
+            timeC = .001f - (period * 3);
         }
         else if(period <= 7.5f){
-            timeC = 0 - (period * 2);
+            timeC = .001f - (period * 2);
         }
         else if(period <= 15.0f){
-            timeC = 0 - (period);
+            timeC = .001f - (period);
         }
         else{
-            timeC = 0;
+            timeC = .001f;
         }
         attatched = true;
         cartScript.reset();

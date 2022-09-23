@@ -44,6 +44,7 @@ public class setParams : MonoBehaviour
         arm1.transform.localScale = new Vector3(0.4075588f, 1, 2 * radius);
         arm2.transform.localScale = new Vector3(0.4075588f, 1, 2 * radius);
         transform.eulerAngles = new Vector3(Mathf.Rad2Deg * (-6.2831853f/rotationPeriod) * timeT, -90, -90);
+        Debug.Log(timeT - car.GetComponent<moveCar>().timeC);
     }
     public void changeRadius()
     {
@@ -52,7 +53,7 @@ public class setParams : MonoBehaviour
         carMove.radius = radius;
         reset();
         reset();
-        makeResetWork();
+        StartCoroutine(makeResetWork());
     }
     public void changePeriod()
     {
@@ -61,7 +62,7 @@ public class setParams : MonoBehaviour
         carMove.period = rotationPeriod;
         reset();
         reset();
-        makeResetWork();
+        StartCoroutine(makeResetWork());
     }
     public void reset()
     {
@@ -77,12 +78,23 @@ public class setParams : MonoBehaviour
         else{
             timeT = 0;
         }
-        
+        StartCoroutine(makeResetWork());
         carMove.reset();
     }
     public IEnumerator makeResetWork(){
         yield return new WaitForSecondsRealtime(0.01f);
-        reset();
+        if(rotationPeriod <= 5){
+            timeT = 0 - (rotationPeriod * 3);
+        }
+        else if(rotationPeriod <= 7.5f){
+            timeT = 0 - (rotationPeriod * 2);
+        }
+        else if(rotationPeriod <= 15.0f){
+            timeT = 0 - (rotationPeriod);
+        }
+        else{
+            timeT = 0;
+        }
         carMove.reset();
     }
 }
